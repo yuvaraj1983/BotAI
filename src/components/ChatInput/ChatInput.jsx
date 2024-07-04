@@ -1,7 +1,7 @@
 import { Button, Stack, Box, TextField } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 
-const ChatInput = ({chatresponse}) => {
+const ChatInput = ({chatresponse, setScroll, chat, clearChat }) => {
     const [input, setInput] = useState('');
 
     const inputRef = useRef(null)
@@ -10,6 +10,8 @@ const ChatInput = ({chatresponse}) => {
         e.preventDefault();
         chatresponse(input);
        // setInput('');
+       setInput('')
+        setScroll(prev => !prev)
     }
 
     useEffect(() =>{
@@ -18,6 +20,9 @@ const ChatInput = ({chatresponse}) => {
 
     })
   return (
+    <Box flexShrink={0}>
+
+   
     <Box component={'form'} onSubmit={handleSubmit}>
 
  
@@ -31,6 +36,7 @@ const ChatInput = ({chatresponse}) => {
   <Button sx={{color:'black'}} variant='contained'>Save</Button>
  
    </Stack>
+   </Box>
    </Box>
   )
 }
