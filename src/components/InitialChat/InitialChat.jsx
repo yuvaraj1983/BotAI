@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import icon from "../../assets/newchat.png"
 import Card from "./Card"
 
-const InitialChat = () => {
+const InitialChat = ({chatresponse}) => {
 
     const initialData = [
         {
@@ -36,7 +36,7 @@ const InitialChat = () => {
             { initialData && initialData.length &&
                 initialData.map((data) => (
                     <Grid item key={data.heading}  md={6}>
-                            <Card heading={data.heading} text={data.text} />
+                            <Card heading={data.heading} text={data.text} handleClick={chatresponse}  />
                     </Grid>
                 
                 ))

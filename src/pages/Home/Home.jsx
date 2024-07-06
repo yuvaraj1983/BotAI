@@ -62,7 +62,7 @@ const Home = () => {
       <Navbar />
    
       { chat.length === 0 &&
-        <InitialChat /> 
+        <InitialChat chatresponse={chatresponse} /> 
       }
       {
         chat.length > 0 && 
