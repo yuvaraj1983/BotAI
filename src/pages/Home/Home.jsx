@@ -88,6 +88,7 @@ const Home = () => {
               key={index}
               showFeedbackModal={() => setShowModal(true)}
               setSelectedChatId={setSelectedChatId}
+              updateChat={setChat}
               />
             ))
           }

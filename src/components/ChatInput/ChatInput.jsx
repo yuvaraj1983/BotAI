@@ -1,17 +1,26 @@
-import { Button, Stack, Box, TextField } from '@mui/material'
+import { Button, Stack, Box, TextField, Snackbar } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 
 const ChatInput = ({chatresponse, setScroll, chat, clearChat }) => {
     const [input, setInput] = useState('');
-
+    const [showSnackbar, setShowSnackbar] = useState(false)
     const inputRef = useRef(null)
 
     const handleSubmit = (e) => {
         e.preventDefault();
         chatresponse(input);
        // setInput('');
-       setInput('')
+        setInput('')
         setScroll(prev => !prev)
+    }
+
+    const handleSave = () => {
+      const chat_history = JSON.parse(localStorage.getItem('chat')) || []
+      const date = new Date();
+
+      localStorage.setItem("chat",JSON.stringify([{chat: chat, datetime: date}, ...chat_history]));
+      clearChat();
+      setShowSnackbar(true)
     }
 
     useEffect(() =>{
@@ -33,8 +42,16 @@ const ChatInput = ({chatresponse, setScroll, chat, clearChat }) => {
    required
    />
   <Button type='submit' sx={{color:'black'}} variant='contained'>Ask</Button>
-  <Button sx={{color:'black'}} variant='contained'>Save</Button>
- 
+  <Button sx={{color:'black'}} variant='contained' onClick={handleSave}>Save</Button>
+  <Snackbar
+        open={showSnackbar}
+        onClose={() => setShowSnackbar(false)}
+        message="Chat saved"
+        action={
+          <a href='/history'>
+            <Button size='small'>See past history</Button></a>
+        }
+      />
    </Stack>
    </Box>
    </Box>
