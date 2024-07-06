@@ -48,17 +48,35 @@ export const theme = createTheme({
 
 function App() {
   const [chat, setChat] = useState([])
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-        <Grid container sx={{background: "linear-gradient(180deg, rgba(215, 199, 244, 0.2) 0%, rgba(151, 133, 186, 0.2) 100%);"
-}}>
-          <Grid md={3} item height={'100vh'}>
-            <Sidebar />
+        <Grid container 
+//         sx={{background: "linear-gradient(180deg, rgba(215, 199, 244, 0.2) 0%, rgba(151, 133, 186, 0.2) 100%);"
+// }}
+sx={{ background: 'linear-gradient(rgba(215, 199, 244, 0.2), rgba(151, 133, 186, 0.2))' }}
+
+>
+          <Grid item xs={12} md={3}  height={'100vh'}
+          sx={{
+            bgcolor: 'white',
+            '@media (max-width:800px)' : {
+              width: '70%',
+              transform: menuOpen ? 'translateX(0)' : 'translateX(-100%)',
+                transition: 'transform 400ms ease',
+            }
+          }}
+          position={{ xs: 'fixed', md: 'relative' }}
+          zIndex={{ xs: 9999, md: 1 }}
+          boxShadow={{ xs: menuOpen ? 10 : 0, md: 0 }}
+        
+          >
+            <Sidebar closeMenu={() => setMenuOpen(false)} />
           </Grid>
-          <Grid item md={9}>
-          <Outlet  context={{ chat: chat, setChat: setChat }}  />
+          <Grid item  md={9}>
+          <Outlet  context={{ chat: chat, setChat: setChat, handleMobileMenu: setMenuOpen }}  />
           </Grid>
         </Grid>
     </ThemeProvider>

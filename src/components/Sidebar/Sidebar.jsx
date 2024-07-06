@@ -1,13 +1,25 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Button, Stack, Typography, useMediaQuery } from '@mui/material'
 import React from 'react'
 import newchat from "../../assets/newchat.png"
 import EditIcon from '@mui/icons-material/Edit';
 import { Link } from 'react-router-dom';
-import { NoEncryption } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
 
-const Sidebar = () => {
+const Sidebar = ({closeMenu}) => {
+  const isMobile = useMediaQuery('(max-width:800px)')
   return (
-    <Box>
+    <Box >
+      {
+        isMobile && 
+        <Button endIcon={<CloseIcon />}
+        sx={{width: 1, justifyContent:'flex-end'}}
+        onClick={closeMenu}
+        >
+          Close
+        </Button>
+      }
+
+
       <a style={{textDecoration:'none'}} href='/'>
      
      
@@ -17,7 +29,10 @@ const Sidebar = () => {
             bgcolor: "#AF9FCD"
           }
         }}>
-          <Box component={'img'} src={newchat} height={45} width={45}>
+          <Box component={'img'} src={newchat} height={45} width={45}
+          flexShrink={0}
+          boxShadow={4}
+          >
           </Box>
           <Typography>New Chat</Typography>
           <EditIcon />
